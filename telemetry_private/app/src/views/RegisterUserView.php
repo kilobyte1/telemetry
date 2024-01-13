@@ -2,12 +2,40 @@
 
 namespace Telemetry\Views;
 
+/**
+ * View class for creating the register user view.
+ */
 
 class RegisterUserView
 {
-    public function __construct(){}
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
 
-    public function __destruct(){}
+    }
+    /**
+     * Destructor.
+     */
+    public function __destruct()
+    {
+
+    }
+
+    /**
+     * Creates the register user view.
+     *
+     * @param object $view View instance for rendering.
+     * @param object $response HTTP response object.
+     * @param array $settings Application settings.
+     * @param array $tainted_parameters User input parameters.
+     * @param array $cleaned_parameters Cleaned user input parameters.
+     * @param array $results Results of processing user input.
+     * @param string $storage_result Result of storing user details.
+     *
+     * @return void
+     */
 
     public function createRegisterUserView(
         object $view,
@@ -19,6 +47,7 @@ class RegisterUserView
         string $storage_result
     ): void
     {
+        // Extract relevant settings and information
         $libsodium_version = SODIUM_LIBRARY_VERSION;
         $application_name = $settings['application_name'];
         $landing_page = $settings['landing_page'];
