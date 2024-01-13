@@ -1,31 +1,46 @@
 <?php
 /**
- * Model.php
+ * RegisterUserModel.php
  *
- * stores the validated values in the relevant storage location
+ * Model for storing validated user data in a storage location.
  *
  * Author: CF Ingrams
  * Email: <clinton@cfing.co.uk>
  * Date: 22/10/2017
  *
- *
+ * @package Telemetry\Models
  * @author CF Ingrams <clinton@cfing.co.uk>
  * @copyright CFI
- *
  */
 
 namespace Telemetry\Models;
 
 use Doctrine\DBAL\DriverManager;
-
+/**
+ * Model class for registering user data.
+ */
 class RegisterUserModel
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+    }
 
-    public function __construct(){}
+    /**
+     * Destructor.
+     */
 
     public function __destruct() { }
-
-
+    /**
+     * Cleans up and validates parameters received from the user input.
+     *
+     * @param object $validator Validator instance for sanitization and validation.
+     * @param array $tainted_parameters User input parameters.
+     *
+     * @return array Cleaned and validated parameters.
+     */
     function cleanupParameters(object $validator, array $tainted_parameters): array
     {
         $cleaned_parameters = [];
@@ -40,7 +55,14 @@ class RegisterUserModel
         $cleaned_parameters['sanitised_email'] = $validator->sanitiseEmail($tainted_email);
         return $cleaned_parameters;
     }
-
+    /**
+     * Encrypts sensitive data using libsodium.
+     *
+     * @param object $libsodium_wrapper LibsodiumWrapper instance for encryption.
+     * @param array $cleaned_parameters Cleaned and validated parameters.
+     *
+     * @return array Encrypted data.
+     */
 
     function encrypt(object $libsodium_wrapper, array $cleaned_parameters): array
     {
@@ -51,7 +73,14 @@ class RegisterUserModel
 
         return $encrypted;
     }
-
+    /**
+     * Encodes encrypted data using base64.
+     *
+     * @param object $base64_wrapper Base64Wrapper instance for encoding.
+     * @param array $encrypted_data Encrypted data.
+     *
+     * @return array Encoded data.
+     */
     function encode(object $base64_wrapper, array $encrypted_data): array
     {
         $encoded = [];
@@ -62,26 +91,29 @@ class RegisterUserModel
     }
 
     /**
-     * Uses the Bcrypt library with constants from settings.php to create hashes of the entered password
+     * Hashes the user's password using Bcrypt.
      *
-     * @param $app
-     * @param $password_to_hash
-     * @return string
+     * @param object $bcrypt_wrapper BcryptWrapper instance for password hashing.
+     * @param string $password_to_hash Password to be hashed.
+     * @param array $settings Configuration settings.
+     *
+     * @return string Hashed password.
      */
     function hash_password(object $bcrypt_wrapper, string $password_to_hash, array $settings): string
     {
         $hashed_password = $bcrypt_wrapper->createHashedPassword($password_to_hash, $settings);
         return $hashed_password;
     }
-
     /**
-     * function both decodes base64 then decrypts the extracted cipher code
+     * Decrypts encoded data.
      *
-     * @param $libsodium_wrapper
-     * @param $base64_wrapper
-     * @param $encoded
-     * @return array
+     * @param object $libsodium_wrapper LibsodiumWrapper instance for decryption.
+     * @param object $base64_wrapper Base64Wrapper instance for decoding.
+     * @param array $encoded Encoded data.
+     *
+     * @return array Decrypted data.
      */
+
     function decrypt(object $libsodium_wrapper, object $base64_wrapper, array $encoded): array
     {
         $decrypted_values = [];
@@ -99,14 +131,15 @@ class RegisterUserModel
 
         return $decrypted_values;
     }
-
     /**
+     * Stores user details using Doctrine QueryBuilder.
      *
-     * Uses the Doctrine QueryBuilder API to store the sanitised user data.
+     * @param array $database_connection_settings Database connection settings.
+     * @param object $doctrine_queries DoctrineSqlQueries instance for SQL queries.
+     * @param array $cleaned_parameters Cleaned and validated parameters.
+     * @param string $hashed_password Hashed password.
      *
-     * @param array $cleaned_parameters
-     * @param string $hashed_password
-     * @return array
+     * @return string Result of the storage operation.
      * @throws \Doctrine\DBAL\DBALException
      */
     function storeUserDetails(
