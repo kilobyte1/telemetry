@@ -1,0 +1,77 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <style>
+        #page-content-div {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+
+    <div id="page-content-div">
+        <h3>{{ page_heading_2 }}</h3>
+
+        <form method='post' action="{{ action }}">
+            <fieldset>
+                <legend>User details</legend>
+                <label for="username">Enter your name:</label>
+                <input id="username" name="username" type="text" value="{{ tainted_parameters['username'] ?? '' }}" maxlength="50">
+
+                <label for="userage">Enter your age:</label>
+                <input id="userage" name="userage" type="text" value="{{ tainted_parameters['userage'] ?? '' }}" maxlength="5">
+
+                <label for="password">Enter your password:</label>
+                <input id="password" name="password" type="password" value="{{ tainted_parameters['password'] ?? '' }}" maxlength="50">
+
+                <label for="email">Enter your email:</label>
+                <input id="email" name="email" type="text" value="{{ tainted_parameters['email'] ?? '' }}" maxlength="50">
+
+                <input type="submit" value="Create user account">
+            </fieldset>
+        </form>
+
+        <p>Already have an account? <a href="/telemetry/login">Sign in</a></p>
+    </div>
+{% endblock %}

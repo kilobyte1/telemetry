@@ -1,0 +1,52 @@
+{% extends 'banner.html.twig' %}
+
+{% block content %}
+    <style>
+        #landing-page {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            color: #007bff;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #28a745;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-sign-in {
+            background-color: #007bff;
+        }
+
+        .btn-log-in {
+            background-color: #ffc107;
+            margin-left: 10px;
+        }
+    </style>
+
+    <div id="landing-page">
+        <h3>Welcome to the M2M SMS Platform!</h3>
+        <p>Sign up or log in to access your account and explore our features.</p>
+
+        <a href="/telemetry/signup" class="btn btn-sign-in">Sign up</a>
+        <a href="/telemetry/login" class="btn btn-log-in">Log In</a>
+    </div>
+{% endblock %}

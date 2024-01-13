@@ -1,0 +1,98 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <style>
+        #page-content-div {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        p.curr_page a {
+            color: red;
+            font-weight: bolder;
+            text-shadow: black;
+            border: 1px solid red;
+        }
+
+        p.curr_page a:hover {
+            color: #ff1a1a;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <div id="page-content-div">
+        <h3>{{ page_heading_2 }}</h3>
+
+        <form method="post" action="{{ sms_page_action }}">
+            <fieldset>
+                <legend>Login</legend>
+                <br>
+                <label for="login_email">Email:</label>
+                <input id="login_email" name="login_email" type="text" value="{{ tainted_parameters['email'] ?? '' }}" size="30" maxlength="50">
+                <br><br>
+                <label for="login_password">Password:</label>
+                <input id="login_password" name="login_password" type="password" value="{{ tainted_parameters['password'] ?? '' }}" size="30" maxlength="50">
+                <br><br>
+                <input type="button" value="Login" onclick="redirectToSmsPage()">
+            </fieldset>
+        </form>
+
+        <p class="curr_page"><a href="{{ landing_page }}">Home</a></p>
+
+        <p>Don't have an account? <a href="/telemetry/signup">Sign up</a></p>
+
+        <script>
+            function redirectToSmsPage() {
+                // Redirect to the SMS page URL
+                window.location.href = "/telemetry/display-message";
+            }
+        </script>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <style>
+        #page-content-div {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h3 {
+            color: #007bff;
+        }
+
+        h4 {
+            color: #28a745;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+
+    <div id="page-content-div">
+        <h3>{{ page_heading_2 }}</h3>
+
+        <h4>Congratulations!</h4>
+        <p>Your account has been created successfully. You are now ready to log in.</p>
+
+        <a href="/telemetry/login" class="button">Login Now</a>
+    </div>
+{% endblock %}
