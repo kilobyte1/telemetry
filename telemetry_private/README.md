@@ -4,7 +4,14 @@
 Roles:
 
 - Team Leader - <b>Richard Kankam</b>
-- 
+- Software Architect - <b>Richard Kankam</b>
+- Web Application Developer - <b>Richard Kankam</b>
+- Database Administrator - <b>Urvee Ashok</b>
+- Tester - <b>Israt Jahan</b>
+- Business analyst - <b>Urvee Ashok</b>
+- interface/Front End Designer - <b>Israt Jahan</b>
+- Documenter - <b>Urvee Ashok</b>
+- Coding standard compliance <b>Israt Jahan</b>
 
 
 The application must, as a minimum:
