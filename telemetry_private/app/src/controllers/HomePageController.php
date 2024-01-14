@@ -1,6 +1,6 @@
 <?php
 /**
- * LandingPageController.php
+ * HomePageController.php
  *
  *
  * @author CF Ingrams - cfi@dmu.ac.uk
