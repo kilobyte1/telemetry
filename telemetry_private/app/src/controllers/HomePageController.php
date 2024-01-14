@@ -1,11 +1,8 @@
 <?php
 /**
  * HomePageController.php
- *
- *
- * @author CF Ingrams - cfi@dmu.ac.uk
- * @copyright De Montfort University
- * @package dates services
+ 
+ * @author Richard Kankam
  */
 
 namespace Telemetry\controllers;
