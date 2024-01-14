@@ -1,18 +1,112 @@
 {% extends 'banner.html.twig' %}
-{% block content %}
-    <div class="row mt-3">
-        <div class="col-12">
-            <h3>Telemetry Messages</h3>
-        </div>
-    </div>
 
-    <div class="row" style="margin-top: 20px">
-        <div class="col-12">
-            <ul>
-                {% for key, value in telemetry_data %}
-                    <li><strong>{{ key }}:</strong> {{ value }}</li>
-                {% endfor %}
-            </ul>
+{% block content %}
+    <style>
+        #page-content-div {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h3 {
+            color: #007bff;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+    </style>
+
+    <div id="page-content-div" class="container mt-3">
+        <div class="row">
+            <div class="col-9">
+                <h3 class="mb-3">Telemetry Messages</h3>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                {% if telemetry_data is not empty %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Destination</th>
+                            <th>Received Time</th>
+                            <th>Bearer</th>
+                            <th>Message Reference</th>
+                            <th>Message</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for telemetry_entry in telemetry_data %}
+                            <tr>
+                                <td>{{ telemetry_entry.sourceMsisdn }}</td>
+                                <td>{{ telemetry_entry.destinationMsisdn }}</td>
+                                <td>{{ telemetry_entry.receivedTime }}</td>
+                                <td>{{ telemetry_entry.bearer }}</td>
+                                <td>{{ telemetry_entry.messageref }}</td>
+                                <td>{{ telemetry_entry.message }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="col-3 text-end">
+                        <a href="/telemetry/smspage" class="btn btn-primary">Send a new message</a>
+                        {% if is_authenticated %}
+                            <form method="post" action="/telemetry/sign-out" style="display: inline;">
+                                <button type="submit" class="btn btn-danger">Sign Out</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                    <p><a href="{{ landing_page }}">Home</a></p>
+                {% else %}
+                    <p>There are no telemetry messages.</p>
+                    <div class="col-3 text-end">
+                        <a href="/telemetry/smspage" class="btn btn-primary">Send a new message</a>
+                        {% if is_authenticated %}
+                            <form method="post" action="/telemetry/sign-out" style="display: inline;">
+                                <button type="submit" class="btn btn-danger">Sign Out</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                    <p><a href="{{ landing_page }}">Home</a></p>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

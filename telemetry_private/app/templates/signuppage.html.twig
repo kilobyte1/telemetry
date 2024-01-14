@@ -68,8 +68,9 @@
                 <label for="email">Enter your email:</label>
                 <input id="email" name="email" type="text" value="{{ tainted_parameters['email'] ?? '' }}" maxlength="50">
 
-                <input type="submit" value="Create user account">
+                <input type="submit" value="Register">
             </fieldset>
+            <p><a href="{{ landing_page }}">Home</a></p>
         </form>
 
         <p>Already have an account? <a href="/telemetry/login">Sign in</a></p>

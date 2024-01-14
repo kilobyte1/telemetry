@@ -1,0 +1,97 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+
+<div id="page-content-div">
+
+<div class="row mt-3">
+        <div class="col-7">
+            <h2>{{ page_heading_2 }}</h2>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 50px">
+        <div class="col-8 offset-2 border border-primary p-3">
+            <small id="emailHelp" class="form-text text-muted">Create a new message below.</small>
+
+            <form method={{method}} action="{{ action }}">
+                <div class="form-group">
+                    <input type="hidden" id="groupId" name="groupId" value="2562416">
+                    <label for="phoneNumber">Phone number</label>
+                    <input type="number"
+                           class="form-control"
+                           id="phoneNumber"
+                           name="phoneNumber"
+                           placeholder="Enter your phone number">
+                </div>
+
+                    <b><label for ="keypad"> Keypad</label></b>
+                    <br>
+                    <select name="keypad" id ="keypad" required>
+                        <option value=""> Select an option</option>
+                        <option value="0"> 0</option>
+                        <option value="1"> 1</option>
+                        <option value="2"> 2</option>
+                        <option value="3"> 3</option>
+                        <option value="4"> 4</option>
+                        <option value="5"> 5</option>
+                        <option value="6"> 6</option>
+                        <option value="7"> 7</option>
+                        <option value="8"> 8</option>
+                        <option value="9"> 9</option>
+                    </select>
+                    <br>
+                    <b><label> Fan</label></b>
+                    <br>
+                    <input type ="radio" id="fanForward" name="fan" valu="Forward" required>
+                    <label for ="fanForward"> Forward</label><br>
+                    <input type ="radio" id="fanReverse" name="fan" valu="Reverse" required>
+                    <label for="fanReverse">Reverse</label><br>
+
+
+                    <br> <label>Switch One</label>
+                    <input type="radio" id="switch-one" name="switchOne" value="On" required>
+                    <label for ="SwitchOne">On</label>
+                    <input type="radio" id="switch-OneSecond" name="switchOne" value=Off required>
+                    <label for="switchOne"> Off</label>
+
+                <br> <label>Switch Two</label>
+                <input type="radio" id="switch-two" name="switch-two" value="On" required>
+                <label for ="Switch-two">On</label>
+                <input type="radio" id="switch-two-Second" name="switch-two" value=Off required>
+                <label for="switch-two"> Off</label>
+
+                <br> <label>Switch Three</label>
+                <input type="radio" id="switch-three" name="switch-three" value="On" required>
+                <label for ="Switch-three">On</label>
+                <input type="radio" id="switch-three-Second" name="switch-three" value=Off required>
+                <label for="switch-three"> Off</label>
+
+                <br> <label>Switch Four</label>
+                <input type="radio" id="switch-four" name="switch-four" value="On" required>
+                <label for ="Switch-four">On</label>
+                <input type="radio" id="switch-four-Second" name="switch-four" value=Off required>
+                <label for="switch-four"> Off</label>
+
+
+                <div class="form-group">
+                    <label for="message">Your message</label>
+                    <textarea class="form-control"
+                              id="message"
+                              name="message"
+                              rows="5"></textarea>
+
+                </div>
+
+
+                <div class="text-center">
+                    <button type="submit" class="send">Send</button><br>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

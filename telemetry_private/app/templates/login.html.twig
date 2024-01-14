@@ -38,8 +38,8 @@
             border-radius: 4px;
         }
 
-        input[type="button"] {
-            background-color: #007bff;
+        input[type="submit"] {
+            background-color: #4caf50;
             color: #fff;
             cursor: pointer;
             padding: 10px;
@@ -47,7 +47,7 @@
             border-radius: 4px;
         }
 
-        input[type="button"]:hover {
+        input[type="submit"]:hover {
             background-color: #0056b3;
         }
 
@@ -70,29 +70,24 @@
     <div id="page-content-div">
         <h3>{{ page_heading_2 }}</h3>
 
-        <form method="post" action="{{ sms_page_action }}">
+        <form method="post" action="{{ action }}">
             <fieldset>
                 <legend>Login</legend>
                 <br>
                 <label for="login_email">Email:</label>
-                <input id="login_email" name="login_email" type="text" value="{{ tainted_parameters['email'] ?? '' }}" size="30" maxlength="50">
+                <input id="login_email" name="login_email" type="text" value="{{ login_tainted_parameters['email'] ?? '' }}" size="30" maxlength="50">
                 <br><br>
                 <label for="login_password">Password:</label>
-                <input id="login_password" name="login_password" type="password" value="{{ tainted_parameters['password'] ?? '' }}" size="30" maxlength="50">
+                <input id="login_password" name="login_password" type="password" value="{{ login_tainted_parameters['password'] ?? '' }}" size="30" maxlength="50">
                 <br><br>
-                <input type="button" value="Login" onclick="redirectToSmsPage()">
+                <input type="submit" value="Login">
             </fieldset>
+            <p><a href="{{ landing_page }}">Home</a></p>
         </form>
-
-        <p class="curr_page"><a href="{{ landing_page }}">Home</a></p>
 
         <p>Don't have an account? <a href="/telemetry/signup">Sign up</a></p>
 
         <script>
-            function redirectToSmsPage() {
-                // Redirect to the SMS page URL
-                window.location.href = "/telemetry/display-message";
-            }
         </script>
     </div>
 {% endblock %}
