@@ -16,3 +16,4 @@ require 'registeruser.php';
 require 'homepage.php';
 require 'login.php';
 require 'displaymessage.php';
+require 'smspage.php';

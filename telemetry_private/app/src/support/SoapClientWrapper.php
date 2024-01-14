@@ -4,67 +4,51 @@
 
 namespace Telemetry\Support;
 
-use Psr\Container\ContainerInterface;
-use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use Telemetry\Models\MessageModel;
 
-/**
- * Wrapper class for SoapClient handling.
- */
 class SoapClientWrapper
 {
-    /**
-     * Constructor.
-     */
+
+    private $logger;
+
     public function __construct()
     {
+        $this->logger = new Logger('logs');
     }
-    /**
-     * Creates a SoapClient instance.
-     *
-     * @return object SoapClient instance.
-     */
 
-    public function createSoapClient(): object
+    public function createSoapClient(array $settings): object
     {
         $soap_client_handle = false;
         $soap_client_parameters = [];
         $exception = '';
 
-        $wsdl = 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl';
+        $wsdl = $settings['wsdl'];
         $soap_client_parameters = ['trace' => true, 'exceptions' => true];
 
         try {
-            // Attempt to create a SoapClient
             $soap_client_handle = new \SoapClient($wsdl, $soap_client_parameters);
         } catch (\SoapFault $exception) {
-            // Log SOAP error
+            $soap_client_handle = 'Something went wrong, please try again';
+            //get the log
             $this->logger->error('SOAP Error: ' . $exception->getMessage());        }
 
         return $soap_client_handle;
     }
-    /**
-     * Performs a SOAP call.
-     *
-     * @param object $soapClient SoapClient instance.
-     * @param string $webserviceFunction Name of the webservice function to call.
-     * @param array $webserviceParameters Parameters for the webservice function.
-     *
-     * @return array Result of the SOAP call.
-     * @throws \Exception If a SOAP fault occurs.
-     */
-    public function performSoapCall($soapClient, $webserviceFunction, $webserviceParameters): array
+
+    public function performSoapCall($soap_client_handle, $webserviceFunction, $webserviceParameters): array
     {
         try {
-            // Attempt SOAP call
-            return $soapClient->__soapCall($webserviceFunction, $webserviceParameters);
+
+            $result = $soap_client_handle->__soapCall($webserviceFunction, $webserviceParameters);
+
+
         } catch (\SoapFault $e) {
 
-
-            // Log SOAP error and throw exception
             throw new \Exception('SOAP Error: ' . $e->getMessage());
-        }
+            $this->logger->error('SOAP Error: ' . $exception->getMessage());
+
+         }
+         return $result;
     }
 
 

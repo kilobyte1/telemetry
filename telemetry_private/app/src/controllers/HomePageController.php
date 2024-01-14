@@ -1,8 +1,11 @@
 <?php
 /**
- * HomePageController.php
- 
- * @author Richard Kankam
+ * LandingPageController.php
+ *
+ *
+ * @author CF Ingrams - cfi@dmu.ac.uk
+ * @copyright De Montfort University
+ * @package dates services
  */
 
 namespace Telemetry\controllers;

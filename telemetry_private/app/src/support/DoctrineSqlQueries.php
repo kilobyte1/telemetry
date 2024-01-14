@@ -13,6 +13,8 @@
 
 namespace Telemetry\Support;
 
+use Doctrine\DBAL\DriverManager;
+
 class DoctrineSqlQueries
 {
     public function __construct(){}
@@ -68,4 +70,62 @@ class DoctrineSqlQueries
 
         return $result;
     }
+    public static function queryStoreTelemetryMessage(
+        object $queryBuilder,
+        array $cleaned_parameters
+    ): array
+    {
+        $store_result = [];
+
+        $queryBuilder = $queryBuilder->insert('received_messages')
+            ->values([
+                'sourcemsisdn' => ':sourcemsisdn',
+                'destinationmsisdn' => ':destinationmsisdn',
+                'receivedtime' => ':receivedtime',
+                'bearer' => ':bearer',
+                'messageref' => ':messageref',
+                'message' => ':message',
+            ])
+            ->setParameters([
+                'sourcemsisdn' => $cleaned_parameters['sourcemsisdn'],
+                'destinationmsisdn' => $cleaned_parameters['destinationmsisdn'],
+                'receivedtime' => $cleaned_parameters['receivedtime'],
+                'bearer' => $cleaned_parameters['bearer'],
+                'messageref' => $cleaned_parameters['messageref'],
+                'message' => $cleaned_parameters['message'],
+            ]);
+
+        $store_result['outcome'] = $queryBuilder->execute();
+        $store_result['sql_query'] = $queryBuilder->getSQL();
+
+        return $store_result;
+    }
+
+    public static function getAllTelemetryMessages(array $database_connection_settings): array
+    {
+        $database_connection = DriverManager::getConnection($database_connection_settings);
+        $queryBuilder = $database_connection->createQueryBuilder();
+
+        $queryBuilder
+            ->select('*')
+            ->from('received_messages');
+
+        $query = $queryBuilder->execute();
+        $telemetry_messages = $query->fetchAll();
+
+        return $telemetry_messages;
+    }
+    public static function getAllUserData(object $queryBuilder): array
+    {
+        $queryBuilder
+            ->select('*')
+            ->from('user_data');
+
+        $query = $queryBuilder->execute();
+        $user_data = $query->fetchAll();
+
+        return $user_data;
+    }
+
+
 }

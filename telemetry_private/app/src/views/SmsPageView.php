@@ -1,33 +1,42 @@
 <?php
 
-namespace Telemetry\Views;
+namespace Telemetry\views;
 
-class LoginView
+class smsPageView
 {
+    public function __construct()
+    {
 
-    public function __construct(){}
+    }
 
-    public function __destruct(){}
+    public function __destruct()
+    {
+    }
 
-    public function createLoginPageView($view, array $settings, $response): void
+    //function that creates the view of the message page
+    public function createSMSPageView(
+        object $view,
+        array $settings,
+        object $response,
+//
+    ): void
     {
         $landing_page = $settings['landing_page'];
         $application_name = $settings['application_name'];
         $css_path = $settings['css_path'];
 
-
         $view->render(
             $response,
-            'login.html.twig',
+            'sms-form.html.twig',
             [
                 'css_path' => $css_path,
                 'landing_page' => $landing_page,
-                'action' => 'display-message',
+                'action' => 'submit-form',
                 'method' => 'post',
                 'initial_input_box_value' => null,
                 'page_title' => $application_name,
                 'page_heading_1' => $application_name,
-                'page_heading_2' => 'Welcome back',
+                'page_heading_2' => 'SMS Form'
             ]);
     }
 }

@@ -35,6 +35,10 @@ return function (Container $container, string $app_dir)
                 'mode' => 'development',
                 'debug' => true,
                 'bcrypt_cost' => 12,
+                'wsdl' => 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl',
+                'wsdl_username' => '23_2562416',
+                'wsdl_password' => 'Letmein1!!!!!!',
+
                 'bcrypt_algorithm' => PASSWORD_DEFAULT,
                 'view' => [
                     'template_path' => $app_dir . 'templates/',
@@ -44,7 +48,6 @@ return function (Container $container, string $app_dir)
                         'auto_reload' => true
                     ],
                 ],
-                'wsdl' => 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl',
                 'm2m_details' => [
                     'username' => '23_2562416',
                     'password' => 'Letmein1!!!!!!',
@@ -56,7 +59,7 @@ return function (Container $container, string $app_dir)
                 'doctrine_settings' => [
                     'driver' => 'pdo_mysql',
                     'host' => 'localhost',
-                    'dbname' => 'registered_users_db',
+                    'dbname' => 'tables',
                     'port' => '3306',
                     'user' => 'registered_user',
                     'password' => 'registered_user_pass',

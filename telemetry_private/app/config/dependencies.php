@@ -101,6 +101,10 @@ return function (Container $container, App $app) {
     $container->set('smsPageModel', function () {
         return new \Telemetry\models\smsPageModel();
     });
+
+    $container->set('loginModel', function () {
+        return new \Telemetry\models\LoginModel();
+    });
     $container->set('messageValidationModel', function () {
         return new \Telemetry\models\messagevalidationModel();
     });
